@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Maps/MainMenu.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Maps/City.unity
+    guid: 536c9f31b532ee3428e00ca09a9abf65
+  - enabled: 1
+    path: Assets/Maps/Testing.unity
+    guid: 725964944224a044f8a4ac7f650d85be
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: de230516c3cb93f40a3fe0758be97381, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 705132687fa06454382c7bc3c10fe5d1, type: 2}

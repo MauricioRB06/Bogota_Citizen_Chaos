@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,19 +23,27 @@ namespace Player
         [SerializeField] private float playerSpeed = 5f;
         [SerializeField] private float collisionOffset = 0.05f;
         [SerializeField] private ContactFilter2D movementFilter;
-        [SerializeField] private Transform interactor;
+        [SerializeField] private GameObject interactor;
         [SerializeField] private Transform hands;
+        [SerializeField] private Camera playerCamera;
         
         private PlayerState _playerState;
         private Vector2 _playerMovementInput;
         private Animator _playerAnimator;
         private Rigidbody2D _playerRigidbody;
         private List<RaycastHit2D> _castCollisions = new();
+        private Vector2 _playerSpawnPosition;
+        
+
+        private bool _canMove = true;
+        private int _playerIndex;
         
         private static readonly int Interact = Animator.StringToHash("Interact");
         private static readonly int Horizontal = Animator.StringToHash("Horizontal");
         private static readonly int Vertical = Animator.StringToHash("Vertical");
         private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int HitTrigger = Animator.StringToHash("Hit");
+        private static readonly int DeadTrigger = Animator.StringToHash("Dead");
 
         // 
         private void Awake()
@@ -56,54 +65,85 @@ namespace Player
             {
                 _playerAnimator.SetTrigger(Interact);
                 
+                if(interactor.transform.localPosition == new Vector3(0.5f, -0.1f, 0))
+                {
+                    interactor.GetComponent<Interactor>().EnableInteractor(10,0);
+                }
+                else if(interactor.transform.localPosition == new Vector3(-0.5f, -0.1f, 0))
+                {
+                    interactor.GetComponent<Interactor>().EnableInteractor(-10,0);
+                }
+                else if(interactor.transform.localPosition == new Vector3(0.0f, 0.2f, 0))
+                {
+                    interactor.GetComponent<Interactor>().EnableInteractor(0,10);
+                }
+                else if(interactor.transform.localPosition == new Vector3(0.0f, -0.675f, 0))
+                {
+                    interactor.GetComponent<Interactor>().EnableInteractor(0,-10);
+                }
+                
             }
         }
         
         // Rigidbody Movement
         public void FixedUpdate()
         {
-            if (_playerMovementInput != Vector2.zero)
-            {
-                var success = TryMove(_playerMovementInput);
-                
-                if (!success)
+            if(_canMove){
+                if (_playerMovementInput != Vector2.zero)
                 {
-                    success = TryMove(new Vector2(_playerMovementInput.x, 0));
-                
+                    var success = TryMove(_playerMovementInput);
+                    
                     if (!success)
                     {
-                        success = TryMove(new Vector2(0, _playerMovementInput.y));
+                        success = TryMove(new Vector2(_playerMovementInput.x, 0));
+                    
+                        if (!success)
+                        {
+                            success = TryMove(new Vector2(0, _playerMovementInput.y));
+                        }
+                    }
+                    
+                    _playerAnimator.SetFloat(Horizontal, _playerMovementInput.x);
+                    _playerAnimator.SetFloat(Vertical, _playerMovementInput.y);
+                    _playerAnimator.SetFloat(Speed, _playerMovementInput.sqrMagnitude);
+                }
+                else
+                {
+                    _playerAnimator.SetFloat(Speed, _playerMovementInput.sqrMagnitude);
+                }
+
+                switch (_playerMovementInput.x)
+                {
+                    case > 0 when _playerMovementInput.y < _playerMovementInput.x:
+                        interactor.transform.localPosition = new Vector3(0.5f, -0.1f, 0);
+                        hands.localPosition = new Vector3(-0.06f, -0.315f, 0);
+                        interactor.GetComponent<Interactor>().interactorCollider.size = new Vector2(0.3f, 0.75f);
+                        break;
+                    case < 0 when _playerMovementInput.y > _playerMovementInput.x:
+                        interactor.transform.localPosition = new Vector3(-0.5f, -0.1f, 0);
+                        hands.localPosition = new Vector3(0.06f, -0.315f, 0);
+                        interactor.GetComponent<Interactor>().interactorCollider.size = new Vector2(0.3f, 0.75f);
+                        break;
+                    default:
+                    {
+                        switch (_playerMovementInput.y)
+                        {
+                            case > 0 when _playerMovementInput.x < _playerMovementInput.y:
+                                interactor.transform.localPosition = new Vector3(0.0f, 0.2f, 0);
+                                hands.localPosition = new Vector3(-0.25f, -0.25f, 0);
+                                interactor.GetComponent<Interactor>().interactorCollider.size = new Vector2(0.75f, 0.6f);
+                                break;
+                            case < 0 when _playerMovementInput.x > _playerMovementInput.y:
+                                interactor.transform.localPosition = new Vector3(0.0f, -0.675f, 0);
+                                hands.localPosition = new Vector3(0.25f, -0.25f, 0);
+                                interactor.GetComponent<Interactor>().interactorCollider.size = new Vector2(0.75f, 0.3f);
+                                break;
+                        }
+
+                        break;
                     }
                 }
                 
-                _playerAnimator.SetFloat(Horizontal, _playerMovementInput.x);
-                _playerAnimator.SetFloat(Vertical, _playerMovementInput.y);
-                _playerAnimator.SetFloat(Speed, _playerMovementInput.sqrMagnitude);
-            }
-            else
-            {
-                _playerAnimator.SetFloat(Speed, _playerMovementInput.sqrMagnitude);
-            }
-            
-            if (_playerMovementInput.x > 0 && _playerMovementInput.y < _playerMovementInput.x)
-            {
-                interactor.localPosition = new Vector3(0.5f, -0.1f, 0);
-                hands.localPosition = new Vector3(-0.06f, -0.315f, 0);
-            }
-            else if (_playerMovementInput.x < 0 && _playerMovementInput.y > _playerMovementInput.x)
-            {
-                interactor.localPosition = new Vector3(-0.5f, -0.1f, 0);
-                hands.localPosition = new Vector3(0.06f, -0.315f, 0);
-            }
-            else if (_playerMovementInput.y > 0 && _playerMovementInput.x < _playerMovementInput.y)
-            {
-                interactor.localPosition = new Vector3(0.0f, 0.7f, 0);
-                hands.localPosition = new Vector3(-0.25f, -0.25f, 0);
-            }
-            else if (_playerMovementInput.y < 0 && _playerMovementInput.x > _playerMovementInput.y)
-            {
-                interactor.localPosition = new Vector3(0.0f, -0.7f, 0);
-                hands.localPosition = new Vector3(0.25f, -0.25f, 0);
             }
         }
 
@@ -123,21 +163,62 @@ namespace Player
             }
         }
 
-        public void TakeDamage()
+        public void SetPlayerIndex(int index, int xSpawnPosition, int ySpawnPosition)
+        {
+            _playerIndex = index;
+            playerCamera.rect = _playerIndex == 0 ? new Rect(0, 0, 0.5f, 1) : new Rect(0.5f, 0, 0.5f, 1);
+            
+            _playerSpawnPosition.x = xSpawnPosition;
+            _playerSpawnPosition.y = ySpawnPosition;
+            _playerRigidbody.position = _playerSpawnPosition;
+        }
+        
+        private void LockMovement() { _canMove = false; }
+        private void UnlockMovement() { _canMove = true; }
+        
+        private IEnumerator StopDamage()
+        {
+            yield return new WaitForSeconds(0.1f);
+            _playerRigidbody.velocity = new Vector2(0,0);
+        }
+        
+        public void TakeDamage(int positionX, int positionY)
         {
             _playerState = PlayerState.NormalMode;
+            _playerAnimator.SetTrigger(HitTrigger);
+            _playerRigidbody.velocity = new Vector2(positionX,positionY);
+            StartCoroutine(StopDamage());
+        }
+        
+        private IEnumerator Spawn()
+        {
+            yield return new WaitForSeconds(0.7f);
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            _playerRigidbody.velocity = new Vector2(0,0);
+            _playerRigidbody.MovePosition(_playerSpawnPosition);
+            yield return new WaitForSeconds(5);
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            _canMove = true;
+        }
+        
+        public void Dead(int xPosition, int yPosition)
+        {
+            _canMove = false;
+            _playerAnimator.SetTrigger(DeadTrigger);
+            _playerRigidbody.velocity = new Vector2(xPosition,yPosition);
+            StartCoroutine(Spawn());
         }
 
         public void PickUpTrash()
         {
             _playerState = PlayerState.TrashMode;
         }
-
+        
         public void HelpOldMan()
         {
             _playerState = PlayerState.OldManMode;
         }
-
+        
         public void CallPolice()
         {
             _playerState = PlayerState.PoliceMode;

@@ -3,7 +3,9 @@
     
     public interface IPlayer
     {
-        void TakeDamage();
+        void TakeDamage(int x, int y);
+        
+        void Dead(int x, int y);
         
         void PickUpTrash();
         
