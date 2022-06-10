@@ -14,7 +14,7 @@ namespace Input
         [SerializeField] private GameObject playerPrefabP2W;
         [SerializeField] private GameObject player1SpawnPoint;
         [SerializeField] private GameObject player2SpawnPoint;
-        [SerializeField] private List<LayerMask> playerLayerMasks;
+        [SerializeField] private GameObject cameraLimits;
         
         private void Awake()
         {
@@ -36,10 +36,10 @@ namespace Input
             var ySpawnPositionPlayer2 = (int) positionPlayer2.y;
             
             player1.transform.position = new Vector3(-5, 0, 0);
-            player1.GetComponent<PlayerController>().SetPlayerIndex(player1.playerIndex,xSpawnPositionPlayer1,ySpawnPositionPlayer1);
+            player1.GetComponent<PlayerController>().SetPlayerIndex(player1.playerIndex,xSpawnPositionPlayer1,ySpawnPositionPlayer1, cameraLimits.GetComponent<Collider2D>());
             
             player2.transform.position = new Vector3(5, 0, 0);
-            player2.GetComponent<PlayerController>().SetPlayerIndex(player2.playerIndex,xSpawnPositionPlayer2,ySpawnPositionPlayer2);
+            player2.GetComponent<PlayerController>().SetPlayerIndex(player2.playerIndex,xSpawnPositionPlayer2,ySpawnPositionPlayer2, cameraLimits.GetComponent<Collider2D>());
         }
         
     }

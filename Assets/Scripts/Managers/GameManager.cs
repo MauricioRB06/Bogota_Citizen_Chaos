@@ -28,7 +28,7 @@ namespace Managers
 
         public void LoadMap(int map)
         {
-            SceneManager.LoadScene(map == 0 ? "`City" : "Testing");
+            SceneManager.LoadScene(map == 0 ? "City" : "Testing");
         }
         
         public void SetPlayer1Character(int character)

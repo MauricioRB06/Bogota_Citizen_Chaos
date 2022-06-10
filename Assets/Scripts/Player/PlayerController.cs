@@ -1,6 +1,7 @@
 ﻿
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,6 +27,7 @@ namespace Player
         [SerializeField] private GameObject interactor;
         [SerializeField] private Transform hands;
         [SerializeField] private Camera playerCamera;
+        [SerializeField] private CinemachineVirtualCamera playerVirtualCamera;
         
         private PlayerState _playerState;
         private Vector2 _playerMovementInput;
@@ -163,7 +165,7 @@ namespace Player
             }
         }
 
-        public void SetPlayerIndex(int index, int xSpawnPosition, int ySpawnPosition)
+        public void SetPlayerIndex(int index, int xSpawnPosition, int ySpawnPosition, Collider2D cameraLimit)
         {
             _playerIndex = index;
             playerCamera.rect = _playerIndex == 0 ? new Rect(0, 0, 0.5f, 1) : new Rect(0.5f, 0, 0.5f, 1);
@@ -171,6 +173,8 @@ namespace Player
             _playerSpawnPosition.x = xSpawnPosition;
             _playerSpawnPosition.y = ySpawnPosition;
             _playerRigidbody.position = _playerSpawnPosition;
+            
+            playerVirtualCamera.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = cameraLimit;
         }
         
         private void LockMovement() { _canMove = false; }

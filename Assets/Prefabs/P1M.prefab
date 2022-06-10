@@ -239,6 +239,7 @@ MonoBehaviour:
   interactor: {fileID: 1964470116064344420}
   hands: {fileID: 2395143137677642764}
   playerCamera: {fileID: 9000838138643459864}
+  playerVirtualCamera: {fileID: 9000838138595268138}
 --- !u!95 &4784549028842768539
 Animator:
   serializedVersion: 4
