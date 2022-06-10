@@ -7,6 +7,8 @@
         
         void Dead(int x, int y);
         
+        void UpdateScore(bool actionType, int score);
+        
         void PickUpTrash();
         
         void HelpOldMan();

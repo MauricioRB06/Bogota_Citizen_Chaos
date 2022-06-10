@@ -16,6 +16,9 @@ namespace Managers
         private string _player1Name;
         private string _player2Name;
 
+        private bool _pause;
+        private GameObject _pauseScreen;
+        
         private void Awake()
         {
             if (Instance == null)
@@ -27,8 +30,19 @@ namespace Managers
             {
                 Destroy(gameObject);
             }
+
+            _pause = false;
         }
 
+        public void GamePause()
+        {
+            _pause = !_pause;
+            Time.timeScale = _pause ? 0 : 1;
+            if(_pauseScreen == null)
+                _pauseScreen = GameObject.FindGameObjectWithTag("Pause");
+            _pauseScreen.SetActive(_pause);
+        }
+        
         public void LoadMap(int map)
         {
             SceneManager.LoadScene(map == 0 ? "City" : "Testing");

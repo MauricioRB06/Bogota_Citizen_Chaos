@@ -153,7 +153,19 @@ MonoBehaviour:
     m_ActionId: 96d5c5b6-2eb0-4b44-a7f9-f70450e14a97
     m_ActionName: Gameplay/Interact[/Keyboard/ctrl,/Keyboard/rightCtrl]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2236027824945084675}
+        m_TargetAssemblyTypeName: Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: bd7ddf47-f3af-4b67-991b-4aa14eec27e9
     m_ActionName: Gameplay/Pause[/Keyboard/escape,/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 1

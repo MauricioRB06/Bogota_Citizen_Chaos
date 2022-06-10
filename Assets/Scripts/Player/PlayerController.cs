@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,7 +36,7 @@ namespace Player
         private Rigidbody2D _playerRigidbody;
         private List<RaycastHit2D> _castCollisions = new();
         private Vector2 _playerSpawnPosition;
-        
+        private int _playerScore;
 
         private bool _canMove = true;
         private int _playerIndex;
@@ -53,6 +54,14 @@ namespace Player
             _playerRigidbody = GetComponent<Rigidbody2D>();
             _playerAnimator = GetComponent<Animator>();
             _playerState = PlayerState.NormalMode;
+        }
+        
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                GameManager.Instance.GamePause();
+            }
         }
         
         // 
@@ -211,6 +220,20 @@ namespace Player
             _playerAnimator.SetTrigger(DeadTrigger);
             _playerRigidbody.velocity = new Vector2(xPosition,yPosition);
             StartCoroutine(Spawn());
+        }
+
+        public void UpdateScore(bool actionType, int score)
+        {
+            if(actionType)
+            {
+                _playerScore += score;
+            }
+            else
+            {
+                _playerScore -= score;
+            }
+            
+            UIManager.Instance.SetScore(_playerIndex, _playerScore);
         }
 
         public void PickUpTrash()
