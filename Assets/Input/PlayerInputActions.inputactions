@@ -6,7 +6,7 @@
             "id": "8cf0c42c-aebc-4d1f-94e4-3ecb62b82133",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Click",
                     "type": "Button",
                     "id": "2603279c-afa0-45af-a768-b92b1cb081fe",
                     "expectedControlType": "Button",
@@ -23,7 +23,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -35,12 +35,12 @@
             "actions": [
                 {
                     "name": "Movement",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "f152f747-44a6-4936-96f9-5859c8be4c24",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Interact",
@@ -130,8 +130,19 @@
                 },
                 {
                     "name": "",
+                    "id": "245819b5-f3cb-43fa-bf54-6d5d080e3953",
+                    "path": "<XInputController>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1c667480-f971-453c-a306-6fc10b89da46",
-                    "path": "<Keyboard>/ctrl",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -179,13 +190,13 @@
             "id": "41151b5e-1e8d-45e0-a16c-c1e6b0fb9e04",
             "actions": [
                 {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "ed95f2d7-1132-4efd-bede-43929421c154",
-                    "expectedControlType": "Button",
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "aa281e7d-1b24-4cbd-9e66-e77e6a9cb561",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Interact",
@@ -197,9 +208,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Movement",
+                    "name": "Pause",
                     "type": "Button",
-                    "id": "aa281e7d-1b24-4cbd-9e66-e77e6a9cb561",
+                    "id": "ed95f2d7-1132-4efd-bede-43929421c154",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -207,6 +218,28 @@
                 }
             ],
             "bindings": [
+                {
+                    "name": "",
+                    "id": "28c294a1-15bd-4839-aee6-e0575e4174a2",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8e8bb1c-fe3f-49fa-83c9-354b9cd9edc6",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
                 {
                     "name": "Keyboard Arrows",
                     "id": "610e701a-af0f-49ad-ac61-0b67843f2ec2",
@@ -292,28 +325,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "28c294a1-15bd-4839-aee6-e0575e4174a2",
-                    "path": "<Keyboard>/p",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e8e8bb1c-fe3f-49fa-83c9-354b9cd9edc6",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1166,7 +1166,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: P1M_U_Walk-3
+      name: P1M_U_Walk_3
       rect:
         serializedVersion: 2
         x: 32
@@ -2834,6 +2834,7 @@ TextureImporter:
       P2M_L_Walk_1: 1600792223
       OldMan_U_Walk_1: -711833219
       P2M_D_Walk_2: -1247489702
+      P1M_U_Walk_3: 825704269
       P1W_L_Walk_1: 122549672
       P2M_R_Interact: 1394097437
       P1M_L_Walk_2: 12157646
@@ -2854,7 +2855,6 @@ TextureImporter:
       Police_U_Walk_2: 1525258985
       P2M_L_Interact: 2052479152
       Police_U_Walk_1: 1227557647
-      P1M_U_Walk-3: 825704269
       P1M_D_Walk_3: 848259568
       OldWoman_U_Walk_1: 1842394422
       P2W_D_Hit: 1849382450
@@ -2887,9 +2887,9 @@ TextureImporter:
       OldWoman_L_Walk_3: 80923442
       Thief_D_Walk_1: 1147497182
       P2W_L_Hit: -2051128267
+      Police_D_Walk_2: 794829822
       OldWoman_L_Walk_1: -1679384504
       Thief_D_Walk_2: -1124193102
-      Police_D_Walk_2: 794829822
       Police_L_Walk_2: -1620134192
       P2M_U_Interact: 763791219
       P2W_R_Walk_1: -2086639606
