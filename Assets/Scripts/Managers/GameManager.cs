@@ -72,8 +72,15 @@ namespace Managers
         
         public int GetPlayer1Character => _player1Character;
         public int GetPlayer2Character => _player2Character;
-        public string GetPlayer1Name => _player1Name;
-        public string GetPlayer2Name => _player2Name;
+
+        public string GetPlayer1Name()
+        {
+            return _player1Name;
+        }
+        public string GetPlayer2Name()
+        {
+           return _player2Name;
+        }
         
     }
 }

@@ -9,7 +9,9 @@ namespace Managers
         
         [SerializeField] private TextMeshProUGUI scoreP1;
         [SerializeField] private TextMeshProUGUI scoreP2;
-
+        [SerializeField] private GameObject player1Name;
+        [SerializeField] private GameObject player2Name;
+        
         private void Awake()
         {
             if (Instance == null)
@@ -21,6 +23,10 @@ namespace Managers
             {
                 Destroy(gameObject);
             }    
+            
+            scoreP1.text = "999";
+            //player1Name.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.GetPlayer1Name();
+           // player2Name.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.GetPlayer2Name();
         }
         
         public void SetScore(int playerIndex, int score)
