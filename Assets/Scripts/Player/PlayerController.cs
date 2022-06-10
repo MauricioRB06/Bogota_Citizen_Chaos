@@ -186,13 +186,18 @@ namespace Player
             playerVirtualCamera.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = cameraLimit;
         }
         
-        private void LockMovement() { _canMove = false; }
+        public void LockMovement() { _canMove = false; }
         private void UnlockMovement() { _canMove = true; }
         
         private IEnumerator StopDamage()
         {
             yield return new WaitForSeconds(0.1f);
             _playerRigidbody.velocity = new Vector2(0,0);
+        }
+
+        public int GetScore()
+        {
+            return _playerScore;
         }
         
         public void TakeDamage(int positionX, int positionY)

@@ -7,7 +7,7 @@ public class TestingDead : MonoBehaviour
     {
         Debug.Log(collision.gameObject.name);
         var colliderObject = collision.GetComponent<IPlayer>();
-        colliderObject?.Dead(0,-3);
+        colliderObject?.UpdateScore(true,100);
     }
     
 }

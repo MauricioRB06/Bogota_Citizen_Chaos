@@ -57,7 +57,7 @@ namespace Input
             _player2.transform.position = new Vector3(5, 0, 0);
             _player2.GetComponent<PlayerController>().SetPlayerIndex(_player2.playerIndex,xSpawnPositionPlayer2,ySpawnPositionPlayer2, cameraLimits.GetComponent<Collider2D>());
         }
-
+        
         public PlayerInput GetPlayer1Reference => _player1;
         public PlayerInput GetPlayer2Reference => _player2;
         
