@@ -172,8 +172,8 @@ namespace Player
             
             _playerSpawnPosition.x = xSpawnPosition;
             _playerSpawnPosition.y = ySpawnPosition;
-            _playerRigidbody.position = _playerSpawnPosition;
-            
+            GetComponentInParent<Transform>().position = _playerSpawnPosition;
+
             playerVirtualCamera.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = cameraLimit;
         }
         
