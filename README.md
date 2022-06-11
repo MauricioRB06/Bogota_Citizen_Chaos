@@ -1,2 +1,2 @@
-# Citizen_Simulator
+# Bogota Citizen Simulator
  Citizen Simulator is a 2D TopDown videogame made for the Sabana GameJam 2022 organized by the University of Savannah, the JAM has the theme Inspiring Citizenship.
