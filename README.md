@@ -1,2 +1,2 @@
-# Bogota Citizen Simulator
- Citizen Simulator is a 2D TopDown videogame made for the Sabana GameJam 2022 organized by the University of Savannah, the JAM has the theme Inspiring Citizenship.
+# Bogota Citizen Chaos
+Bogota Citizen Chaos is a 2D TopDown videogame made for the Sabana GameJam 2022 organized by the University of Sabana, the JAM has the theme inspirational citizenship.
